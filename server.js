@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const apiroute = require("./routes/api.js");
 const htmlroute = require("./routes/html.js");
-
+const path = require("path");
 //needed but elsewhere
 //const path = require("path");
 
@@ -15,8 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect(process.env.Mongo_db_uri || "mongodb://localhost/workout", {
   useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
   useFindAndModify: false,
 });
 //note to self not sure which works above or below?
